@@ -14,11 +14,29 @@
       <ion-col col-8 col-lg-10>
         <ion-item text-wrap>
           <h2>{{ movie.title }}</h2>
-          <p>{{ movie.overview | slice:0:120 }}{{ movie.overview.length > 120 ? '...' : '' }}</p>
+          <p>{{ movie.overview | slice:0:180 }}{{ movie.overview.length > 180 ? '...' : '' }}</p>
         </ion-item>
       </ion-col>
 
     </ion-row>
+
+    <ion-toolbar color="accent" no-padding>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-start clear small color="light">
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>{{ movie.rating }}%</div>
+          </button>
+        </ion-col>
+        <ion-col>
+            <button ion-button icon-start clear small color="light">
+              <ion-icon name="calendar"></ion-icon>
+              <div>{{ movie.releaseDateText }}</div>
+            </button>
+          </ion-col>
+        </ion-row>
+</ion-toolbar>
+    
 
   </ion-card-content>
 

@@ -1,4 +1,6 @@
 
+import * as moment from 'moment';
+
 const imageUrlPrefix: string = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2';
 
 class Movie {
@@ -7,7 +9,7 @@ class Movie {
     title: string = "";
     overview: string = "";
     popularity: number = 0;
-    releaseDate: string = "";
+    releaseDate: moment.Moment;
     status: string = "";
     tagline: string = "";
     voteAverage: number = 0;
@@ -32,6 +34,10 @@ class Movie {
         return this.voteAverage * 10.0;
     }
 
+    get releaseDateText() : string {
+        return this.releaseDate.format('MMM d, YYYY');
+    }
+
 }
 
 namespace Movie {
@@ -50,7 +56,7 @@ namespace Movie {
         movie.backdropPath = json["backdrop_path"];
         movie.voteCount = json["vote_count"];
         movie.voteAverage = json["vote_average"];
-        movie.releaseDate = json["release_date"];
+        movie.releaseDate = moment(json["release_date"], 'YYYY-MM-DD');
         return movie;
     }
 

@@ -23,4 +23,16 @@
     </ion-col>
   </ion-row>
 
+  <ion-row class="cast" margin-top>
+    <ion-col>
+      <h3>Full Cast &amp; Crew</h3>
+      <ion-slides [slidesPerView]="2">
+        <ion-slide *ngFor="let cast of movie.casting" padding-horizontal>
+          <h4>{{ cast.name }}</h4>
+          <img [src]="cast.profileUrl" alt="{{ cast.name }} Profile Picture" />
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-row>
+
 </ion-content>

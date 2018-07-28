@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { 
-        NavController, NavParams, 
-        LoadingController, Loading 
-    } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { TMDBService, Movie, MovieType } from '../../providers/imdb/imdb';
 import { MovieDetailsPage } from '../pages';
-import { Observable, Subscription } from '../../../node_modules/rxjs';
+import { BaseController } from '../common/base-controller';
 
 /**
  * Movie List Page.
@@ -15,7 +12,7 @@ import { Observable, Subscription } from '../../../node_modules/rxjs';
     selector: 'page-movie-list',
     templateUrl: 'movie-list.html',
 })
-class MovieListPage {
+class MovieListPage extends BaseController {
 
     /**
      * Screen Title.
@@ -37,17 +34,14 @@ class MovieListPage {
      */
     movies: Movie[] = [];
 
-    /**
-     * Loading View.
-     */
-    private loadingView: Loading;
-
+    
     constructor(
         public navCtrl: NavController, 
         public navParams: NavParams,
-        private loadingCtrl: LoadingController,
+        public loadingCtrl: LoadingController,
         private movieService: TMDBService) {
 
+        super(loadingCtrl);
         this.title = navParams.get('title');
         this.type = navParams.get('type');
         
@@ -115,17 +109,6 @@ class MovieListPage {
         this.navCtrl.push(MovieDetailsPage, {
             movie: movie
         });
-    }
-
-    showLoading() {
-        this.loadingView = this.loadingCtrl.create({
-            content: 'Loading...'
-        });
-        this.loadingView.present();
-    }
-
-    hideLoading() {
-        this.loadingView.dismiss();
     }
 
 }

@@ -4,8 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { zip } from 'rxjs/observable/zip';
 
 import { Movie, MovieType } from './models/movie';
+import { Cast } from './models/cast';
 
 @Injectable()
 class TMDBApiClient {
@@ -52,6 +54,52 @@ class TMDBApiClient {
      */
     public fetchTopRatedMovies(page: number = 1) : Observable<Movie[]> {
         return this.fetchMovies(MovieType.TopRated, page);
+    }
+
+    /**
+     * Get the details of a movie: info + credits
+     * @param movieId 
+     */
+    public getMovieInfo(movieId: number) : Observable<Movie> {
+
+        const observableMovieDetails = this.getMovieDetails(movieId);
+        const observableMovieCredits = this.getMovieCredits(movieId);
+
+        return zip(observableMovieDetails, observableMovieCredits)
+            .pipe(
+                map((results) => {
+                    const movie: Movie = results[0];
+                    movie.casting = results[1];
+                    return movie;
+                })  
+            );
+    }
+
+    /**
+     * Get the primary information about a movie.
+     * @param movieId 
+     */
+    public getMovieDetails(movieId: number) : Observable<Movie> {
+        const path: string = `movie/${movieId}`;
+        const observable = this.api<Movie>(path, 'get');
+        return observable.pipe(
+                mergeMap(data => of(Movie.fromJson(data)))
+            );
+    }
+
+    /**
+     * Get the cast and crew for a movie.
+     * @param movieId 
+     */
+    public getMovieCredits(movieId: number) : Observable<Cast[]> {
+        const path: string = `movie/${movieId}/credits`;
+        const observable = this.api<Movie>(path, 'get');
+        return observable.pipe(
+            mergeMap(data => of(data["cast"])),
+            map((data) => {
+                return data.map((item) => Cast.fromJson(item));
+            })
+        );
     }
 
     /**

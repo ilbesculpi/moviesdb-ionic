@@ -1,12 +1,4 @@
 
-enum MovieType {
-
-    Popular = "popular",
-    Upcoming = "upcoming",
-    TopRated = "top_rated"
-
-}
-
 class Movie {
 
     id: number = 0;
@@ -42,6 +34,33 @@ class Movie {
         movie.voteAverage = json["vote_average"];
         movie.releaseDate = json["release_date"];
         return movie;
+    }
+
+}
+
+enum MovieType {
+
+    Popular = "popular",
+    Upcoming = "upcoming",
+    TopRated = "top_rated"
+
+}
+
+namespace MovieType {
+
+    /**
+     * Helper function to get the API path for fetching movies.
+     * @param type 
+     */
+    export function path(type: MovieType) : string {
+        switch( type ) {
+            case MovieType.Popular:
+                return 'movie/popular';
+            case MovieType.Upcoming:
+                return 'movie/upcoming';
+            case MovieType.TopRated:
+                return 'movie/top_rated';
+        }
     }
 
 }

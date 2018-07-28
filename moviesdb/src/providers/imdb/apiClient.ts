@@ -19,16 +19,39 @@ class TMDBApiClient {
     }
 
     /**
+     * Fetch a list of movies by type (Popular / Upcoming / Top Rated).
+     * @param type 
+     */
+    public fetchMovies(type: MovieType) : Observable<Movie[]> {
+        const path: string = MovieType.path(type);
+        const observable = this.api<Movie[]>(path, 'get', {});
+        return observable.pipe(
+            switchMap(data => of(data["results"])),
+            map((data) => {
+                return data.map((item) => Movie.fromJson(item))
+            })
+        );
+    }
+
+    /**
      * Fetch a list of popular movies.
      */
     public fetchPopularMovies() : Observable<Movie[]> {
-        const observable = this.api<Movie[]>('movie/popular', 'get');
-        return observable.pipe(
-                switchMap(data => of(data["results"])),
-                map((data) => {
-                    return data.map((item) => Movie.fromJson(item))
-                })
-            );
+        return this.fetchMovies(MovieType.Popular);
+    }
+
+    /**
+     * Fetch a list of upcoming movies.
+     */
+    public fetchUpcomingMovies() : Observable<Movie[]> {
+        return this.fetchMovies(MovieType.Upcoming);
+    }
+
+    /**
+     * Fetch a list of the top rated movies.
+     */
+    public fetchTopRatedMovies() : Observable<Movie[]> {
+        return this.fetchMovies(MovieType.TopRated);
     }
 
     /**
@@ -40,10 +63,12 @@ class TMDBApiClient {
     public api<T>(path: string, method: string = 'get', params: any = {}) : Observable<T> {
         if( method === 'get' ) {
             const endPoint = this.getEndpoint(path, params);
+            console.log('[GET]:', endPoint);
             return this.http.get<T>(endPoint);
         }
         else if( method === 'post' ) {
             const endPoint = this.getEndpoint(path);
+            console.log('[POST]:', endPoint, params);
             return this.http.post<T>(endPoint, params);
         }
     }
@@ -55,7 +80,7 @@ class TMDBApiClient {
      */
     private getEndpoint(path: string, params: any = {}) : string {
         let url: string = `${this.baseUrl}/${this.apiVersion}/${path}?api_key=${this.apiKey}`;
-        if( params ) {
+        if( params && Object.keys(params).length > 0 ) {
             const queryStringParams = this.getQueryStringParameters(params).join('&');
             url += '&' + queryStringParams;
         }

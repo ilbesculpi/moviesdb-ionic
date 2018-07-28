@@ -1,4 +1,4 @@
-
+import { Cast } from './cast';
 import * as moment from 'moment';
 
 const imageUrlPrefix: string = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2';
@@ -17,6 +17,8 @@ class Movie {
     posterPath: string = "";
     backdropPath: string = "";
     homepage: string = "";
+
+    casting: Cast[] = [];
 
     constructor() {
 

@@ -6,6 +6,7 @@ import {
 
 import { TMDBService, Movie, MovieType } from '../../providers/imdb/imdb';
 import { MovieDetailsPage } from '../pages';
+import { Observable, Subscription } from '../../../node_modules/rxjs';
 
 /**
  * Movie List Page.
@@ -25,6 +26,11 @@ class MovieListPage {
      * Type of Movies to display (Popular / Upcoming / Top Rated).
      */
     type: MovieType = MovieType.Popular;
+
+    /**
+     * Tracks the current page to fetch.
+     */
+    page: number = 1;
 
     /**
      * Holds the list of movies to display.
@@ -52,16 +58,52 @@ class MovieListPage {
         this.fetchMovies();
     }
 
-    private fetchMovies() {
+    private fetchMovies(completion?: (() => void )) {
         this.showLoading();
-        this.movieService.fetchMovies(this.type)
+        this.movieService.fetchMovies(this.type, 1)
             .subscribe((movies: Movie[]) => {
                 console.log(movies);
+                this.page += 1;
                 this.movies = movies;
                 this.hideLoading();
+                if( completion ) {
+                    completion();
+                }
             }, (error) => {
                 console.log('[ERROR] Error fetching movies', error);
                 this.hideLoading();
+                if( completion ) {
+                    completion();
+                }
+            });
+    }
+
+    /**
+     * Called when the user pulls down at the top of the page.
+     * @param refresher 
+     */
+    public refresh(refresher) {
+        this.page = 1;  // reset page to 1
+        this.fetchMovies(() => {
+            refresher.complete();
+        });
+    }
+
+    /**
+     * Called when the user reaches the end of the list.
+     * @param scroll 
+     */
+    public fetchMoreItems(scroll) {
+        this.movieService.fetchMovies(this.type, this.page)
+            .subscribe((movies: Movie[]) => {
+                console.log(movies);
+                this.page += 1;
+                // append the movies at the end of the array
+                movies.forEach((movie) => this.movies.push(movie));
+                scroll.complete();
+            }, (error) => {
+                console.log('[ERROR] Error fetching movies', error);
+                scroll.complete();
             });
     }
 

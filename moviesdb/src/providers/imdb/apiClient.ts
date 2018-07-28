@@ -22,9 +22,9 @@ class TMDBApiClient {
      * Fetch a list of movies by type (Popular / Upcoming / Top Rated).
      * @param type 
      */
-    public fetchMovies(type: MovieType) : Observable<Movie[]> {
+    public fetchMovies(type: MovieType, page: number = 1) : Observable<Movie[]> {
         const path: string = MovieType.path(type);
-        const observable = this.api<Movie[]>(path, 'get', {});
+        const observable = this.api<Movie[]>(path, 'get', { page: page });
         return observable.pipe(
             switchMap(data => of(data["results"])),
             map((data) => {
@@ -36,22 +36,22 @@ class TMDBApiClient {
     /**
      * Fetch a list of popular movies.
      */
-    public fetchPopularMovies() : Observable<Movie[]> {
-        return this.fetchMovies(MovieType.Popular);
+    public fetchPopularMovies(page: number = 1) : Observable<Movie[]> {
+        return this.fetchMovies(MovieType.Popular, page);
     }
 
     /**
      * Fetch a list of upcoming movies.
      */
-    public fetchUpcomingMovies() : Observable<Movie[]> {
-        return this.fetchMovies(MovieType.Upcoming);
+    public fetchUpcomingMovies(page: number = 1) : Observable<Movie[]> {
+        return this.fetchMovies(MovieType.Upcoming, page);
     }
 
     /**
      * Fetch a list of the top rated movies.
      */
-    public fetchTopRatedMovies() : Observable<Movie[]> {
-        return this.fetchMovies(MovieType.TopRated);
+    public fetchTopRatedMovies(page: number = 1) : Observable<Movie[]> {
+        return this.fetchMovies(MovieType.TopRated, page);
     }
 
     /**

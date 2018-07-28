@@ -6,6 +6,10 @@
 
 <ion-content no-padding>
 
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <h2 padding-horizontal text-center>{{ title }}</h2>
 
   <ion-grid>
@@ -15,5 +19,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="fetchMoreItems($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

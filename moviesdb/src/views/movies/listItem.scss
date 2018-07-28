@@ -1,0 +1,19 @@
+.movie-card {
+
+    padding: 0;
+    background-color: color($colors, light);
+
+    ion-card-content, ion-item {
+        background-color: color($colors, light);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+}

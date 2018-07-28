@@ -5,6 +5,7 @@ import {
     } from 'ionic-angular';
 
 import { TMDBService, Movie, MovieType } from '../../providers/imdb/imdb';
+import { MovieDetailsPage } from '../pages';
 
 /**
  * Movie List Page.
@@ -62,6 +63,16 @@ class MovieListPage {
                 console.log('[ERROR] Error fetching movies', error);
                 this.hideLoading();
             });
+    }
+
+    /**
+     * Called when a movie is selected on the list.
+     * @param movie 
+     */
+    selectMovie(movie: Movie) {
+        this.navCtrl.push(MovieDetailsPage, {
+            movie: movie
+        });
     }
 
     showLoading() {

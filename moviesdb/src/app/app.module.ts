@@ -10,6 +10,7 @@ import {
         HomePage, 
         MovieListPage,
         MyMoviesPage,
+        MovieDetailsPage
     } from '../pages/pages';
 
 // views
@@ -27,7 +28,8 @@ import { TMDBService } from '../providers/imdb/imdb';
         HomePage,
         MovieListPage,
         MovieListItem,
-        MyMoviesPage
+        MyMoviesPage,
+        MovieDetailsPage
     ],
     imports: [
         BrowserModule,
@@ -41,7 +43,8 @@ import { TMDBService } from '../providers/imdb/imdb';
         HomePage,
         MovieListPage,
         MovieListItem,
-        MyMoviesPage
+        MyMoviesPage,
+        MovieDetailsPage
     ],
     providers: [
         StatusBar,

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ movie.title }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h2 text-center>{{ movie.title }}</h2>
+
+  <ion-row>
+    <ion-col>
+      <img [src]="movie.posterUrl" alt="Movie Poster" />
+    </ion-col>
+    <ion-col>
+        <img [src]="movie.backdropUrl" alt="Movie Backdrop" />
+      </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <p>{{ movie.overview }}</p>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

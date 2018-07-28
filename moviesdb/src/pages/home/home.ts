@@ -20,6 +20,7 @@ export class HomePage {
         this.movieService.fetchPopularMovies()
             .subscribe((movies: Movie[]) => {
                 console.log(movies);
+                this.movies = movies;
             }, (error) => {
                 console.log('[ERROR] Error fetching movies', error);
             });

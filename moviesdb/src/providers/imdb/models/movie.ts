@@ -1,4 +1,6 @@
 
+const imageUrlPrefix: string = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2';
+
 class Movie {
 
     id: number = 0;
@@ -18,11 +20,27 @@ class Movie {
 
     }
 
+    get posterUrl() : string {
+        return `${imageUrlPrefix}${this.posterPath}`;
+    }
+
+    get backdropUrl() : string {
+        return `${imageUrlPrefix}${this.backdropPath}`;
+    }
+
+    get rating() : number {
+        return this.voteAverage * 10.0;
+    }
+
+}
+
+namespace Movie {
+
     /**
      * Build a Movie object from the json entry returned by the TMDB Api.
      * @param json 
      */
-    static fromJson(json: any) : Movie {
+    export function fromJson(json: any) : Movie {
         const movie = new Movie();
         movie.id = json["id"];
         movie.title = json["title"];

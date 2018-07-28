@@ -1,0 +1,25 @@
+<ion-card class="movie-card" no-padding>
+
+  <ion-card-content no-padding>
+
+    <ion-row>
+
+      <ion-col col-4 col-lg-2>
+        <!--
+        <ion-img src="{{ movie.posterUrl }}" with="100%" height="100%" alt="{{ movie.title }} Poster"></ion-img>
+        -->
+        <img [src]="movie.posterUrl" width="100%" alt="Movie Poster" />
+      </ion-col>
+
+      <ion-col col-8 col-lg-10>
+        <ion-item text-wrap>
+          <h2>{{ movie.title }}</h2>
+          <p>{{ movie.overview | slice:0:120 }}{{ movie.overview.length > 120 ? '...' : '' }}</p>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-card-content>
+
+</ion-card>

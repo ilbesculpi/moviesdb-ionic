@@ -13,6 +13,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 // views
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { MovieListItem } from '../views/movies/listItem';
 
 // services
 import { TMDBService } from '../providers/imdb/imdb';
@@ -23,7 +24,8 @@ import { TMDBService } from '../providers/imdb/imdb';
         AboutPage,
         ContactPage,
         HomePage,
-        TabsPage
+        TabsPage,
+        MovieListItem
     ],
     imports: [
         BrowserModule,
@@ -36,13 +38,14 @@ import { TMDBService } from '../providers/imdb/imdb';
         AboutPage,
         ContactPage,
         HomePage,
-        TabsPage
+        TabsPage,
+        MovieListItem
     ],
     providers: [
         StatusBar,
         SplashScreen,
-        { provide: ErrorHandler, useClass: IonicErrorHandler },
-        TMDBService
+        TMDBService,
+        { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]
 })
 export class AppModule { }

@@ -9,12 +9,12 @@
   <h2 text-center>{{ movie.title }}</h2>
 
   <ion-row>
-    <ion-col>
-      <img [src]="movie.posterUrl" alt="Movie Poster" />
+    <ion-col col-6 col-md-3 push-md-3>
+      <img [src]="movie.posterUrl" alt="Movie Poster" width="100%" />
     </ion-col>
-    <ion-col>
-        <img [src]="movie.backdropUrl" alt="Movie Backdrop" />
-      </ion-col>
+    <ion-col col-6 col-md-3 push-md-3>
+      <img [src]="movie.backdropUrl" alt="Movie Backdrop" width="100%" />
+    </ion-col>
   </ion-row>
 
   <ion-row>

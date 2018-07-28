@@ -1,5 +1,18 @@
 <ion-tabs color="secondary">
-  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Upcoming" tabIcon="clock"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Favorites" tabIcon="heart"></ion-tab>
+  <ion-tab [root]="tabHome.page" 
+    [rootParams]="tabHome.params"
+    [tabTitle]="tabHome.title"
+    [tabIcon]="tabHome.icon"></ion-tab>
+  <ion-tab [root]="tabUpcoming.page" 
+    [rootParams]="tabUpcoming.params"
+    [tabTitle]="tabUpcoming.title"
+    [tabIcon]="tabUpcoming.icon"></ion-tab>
+  <ion-tab [root]="tabTopRated.page" 
+    [rootParams]="tabTopRated.params"
+    [tabTitle]="tabTopRated.title"
+    [tabIcon]="tabTopRated.icon"></ion-tab>
+  <ion-tab [root]="tabFavorites.page" 
+    [rootParams]="tabFavorites.params"
+    [tabTitle]="tabFavorites.title"
+    [tabIcon]="tabFavorites.icon"></ion-tab>
 </ion-tabs>

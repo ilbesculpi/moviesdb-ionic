@@ -1,19 +1,54 @@
 import { Component } from '@angular/core';
 
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
+import { MovieListPage, MyMoviesPage } from '../pages';
+import { MovieType } from '../../providers/imdb/imdb';
 
 @Component({
-  templateUrl: 'tabs.html'
+    templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+    tabHome = {
+        page: MovieListPage,
+        title: 'Home',
+        icon: 'home',
+        params: {
+            type: MovieType.Popular,
+            title: 'Home'
+        }
+    }
 
-  constructor() {
+    tabUpcoming = {
+        page: MovieListPage,
+        title: 'Upcoming',
+        icon: 'clock',
+        params: {
+            type: MovieType.Upcoming,
+            title: 'Next Releases'
+        }
+    }
 
-  }
+    tabTopRated = {
+        page: MovieListPage,
+        title: 'Top Rated',
+        icon: 'star',
+        params: {
+            type: MovieType.Upcoming,
+            title: 'Top Rated'
+        }
+    }
+
+    tabFavorites = {
+        page: MyMoviesPage,
+        title: 'My Movies',
+        icon: 'heart',
+        params: {
+            title: 'My Movies'
+        }
+    }
+
+    constructor() {
+
+    }
+    
 }

@@ -5,10 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 
 // pages
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { 
+        TabsPage, 
+        HomePage, 
+        MovieListPage,
+        MyMoviesPage,
+    } from '../pages/pages';
 
 // views
 import { StatusBar } from '@ionic-native/status-bar';
@@ -21,11 +23,11 @@ import { TMDBService } from '../providers/imdb/imdb';
 @NgModule({
     declarations: [
         MyApp,
-        AboutPage,
-        ContactPage,
-        HomePage,
         TabsPage,
-        MovieListItem
+        HomePage,
+        MovieListPage,
+        MovieListItem,
+        MyMoviesPage
     ],
     imports: [
         BrowserModule,
@@ -35,11 +37,11 @@ import { TMDBService } from '../providers/imdb/imdb';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        AboutPage,
-        ContactPage,
-        HomePage,
         TabsPage,
-        MovieListItem
+        HomePage,
+        MovieListPage,
+        MovieListItem,
+        MyMoviesPage
     ],
     providers: [
         StatusBar,

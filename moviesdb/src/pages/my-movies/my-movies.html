@@ -1,13 +1,20 @@
 <ion-header>
   <ion-navbar color="primary">
+    <button ion-button icon-only>
+      <img src="/assets/imgs/logo.png" width="32px" height="32px" />
+    </button>
     <ion-title>{{ title }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
 
-  <h2 padding-horizontal text-center>{{ title }}</h2>
-
-  <p>Content</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-md-6 col-lg-4 *ngFor="let movie of movies" approxItemHeight="260">
+        <movie-list-item [movie]="movie" (click)="selectMovie(movie)"></movie-list-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

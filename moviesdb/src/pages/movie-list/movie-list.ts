@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
+import { BaseController } from '../common/base-controller';
 import { TMDBService, Movie, MovieType } from '../../providers/imdb/imdb';
 import { MovieDetailsPage } from '../pages';
-import { BaseController } from '../common/base-controller';
+
 
 /**
  * Movie List Page.

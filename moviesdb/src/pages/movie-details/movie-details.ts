@@ -20,6 +20,11 @@ class MovieDetailsPage extends BaseController {
      */
     movie: Movie;
 
+    /**
+     * Indicates whether the movie has been favorited by the user or not.
+     */
+    favorited: boolean = false;
+
     constructor(
         public navCtrl: NavController, 
         public navParams: NavParams,
@@ -50,7 +55,14 @@ class MovieDetailsPage extends BaseController {
     }
 
     /**
-     * Called when user clicks the share button.
+     * Called when the user clicks the favorite button.
+     */
+    public toggleFavorite() {
+        this.favorited = !this.favorited;
+    }
+
+    /**
+     * Perform facebook share action.
      */
     public shareViaFacebook() {
         console.log('shareViaFacebook()');
@@ -61,6 +73,9 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform twitter share action.
+     */
     public shareViaTwitter() {
         console.log('shareViaTwitter()');
         this.socialSharing.shareViaTwitter(
@@ -70,6 +85,9 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform instagram share action.
+     */
     public shareViaInstagram() {
         console.log('shareViaInstagram()');
         this.socialSharing.shareViaInstagram(
@@ -78,6 +96,9 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform whatsapp share action.
+     */
     public shareViaWhatsApp() {
         console.log('shareViaWhatsApp()');
         this.socialSharing.shareViaWhatsApp(
@@ -87,12 +108,15 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform email share action.
+     */
     public shareViaEmail() {
         console.log('shareViaEmail()');
         this.socialSharing.shareViaEmail(
             this.movie.tagline,
             this.movie.title,
-            ['ilbert.esculpi@gmail.com']
+            null
         );
     }
 

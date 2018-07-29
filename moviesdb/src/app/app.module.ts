@@ -21,6 +21,8 @@ import { MovieListItem } from '../views/movies/listItem';
 // services
 import { TMDBService } from '../providers/imdb/imdb';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { IonicStorageModule } from '@ionic/storage';
+import { LocalManagerProvider } from '../providers/local-manager/local-manager';
 
 @NgModule({
     declarations: [
@@ -35,7 +37,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     imports: [
         BrowserModule,
         HttpClientModule,
-        IonicModule.forRoot(MyApp)
+        IonicModule.forRoot(MyApp),
+        IonicStorageModule.forRoot()
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -52,7 +55,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
         SplashScreen,
         TMDBService,
         SocialSharing,
-        { provide: ErrorHandler, useClass: IonicErrorHandler }
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+    LocalManagerProvider
     ]
 })
 export class AppModule { }

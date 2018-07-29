@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController  } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController  } from 'ionic-angular';
 
 import { BaseController } from '../common/base-controller';
 import { TMDBService, Movie } from '../../providers/imdb/imdb';
@@ -29,6 +29,7 @@ class MovieDetailsPage extends BaseController {
         public navCtrl: NavController, 
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
+        public toastCtrl: ToastController,
         private movieService: TMDBService,
         private socialSharing: SocialSharing,
         private localService: LocalManagerService) {
@@ -68,7 +69,19 @@ class MovieDetailsPage extends BaseController {
         this.localService.toggleMovie(this.movie)
             .then(() => {
                 console.log('Complete');
+                if( this.favorited ) {
+                    this.displayFavoritedMessage();
+                }
             })
+    }
+
+    private displayFavoritedMessage() {
+        const toast = this.toastCtrl.create({
+            message: 'Added to your favorite list!',
+            duration: 2000,
+            position: 'bottom'
+        });
+        toast.present();
     }
 
     /**

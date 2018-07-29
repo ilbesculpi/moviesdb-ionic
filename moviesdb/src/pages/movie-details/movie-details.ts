@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController  } from 'ionic-angular';
 
-import { TMDBService, Movie } from '../../providers/imdb/imdb';
 import { BaseController } from '../common/base-controller';
-
+import { TMDBService, Movie } from '../../providers/imdb/imdb';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { LocalManagerService } from '../../providers/local-manager/local-manager';
 
 /**
  * Movie Details Page.
@@ -20,12 +20,18 @@ class MovieDetailsPage extends BaseController {
      */
     movie: Movie;
 
+    /**
+     * Indicates whether the movie has been favorited by the user or not.
+     */
+    favorited: boolean = false;
+
     constructor(
         public navCtrl: NavController, 
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
         private movieService: TMDBService,
-        private socialSharing: SocialSharing) {
+        private socialSharing: SocialSharing,
+        private localService: LocalManagerService) {
         
         super(loadingCtrl);
         this.movie = navParams.get('movie');
@@ -33,6 +39,11 @@ class MovieDetailsPage extends BaseController {
     }
 
     ngOnInit() {
+        this.localService.isMovieFavorited(this.movie.id)
+            .then((result) => {
+                this.favorited = result;
+                console.log(result ? 'Movie is favorited' : 'Movie is not favorited');
+            });
         this.fetchMovieDetails();
     }
 
@@ -50,7 +61,18 @@ class MovieDetailsPage extends BaseController {
     }
 
     /**
-     * Called when user clicks the share button.
+     * Called when the user clicks the favorite button.
+     */
+    public toggleFavorite() {
+        this.favorited = !this.favorited;
+        this.localService.toggleMovie(this.movie)
+            .then(() => {
+                console.log('Complete');
+            })
+    }
+
+    /**
+     * Perform facebook share action.
      */
     public shareViaFacebook() {
         console.log('shareViaFacebook()');
@@ -61,6 +83,9 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform twitter share action.
+     */
     public shareViaTwitter() {
         console.log('shareViaTwitter()');
         this.socialSharing.shareViaTwitter(
@@ -70,6 +95,9 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform instagram share action.
+     */
     public shareViaInstagram() {
         console.log('shareViaInstagram()');
         this.socialSharing.shareViaInstagram(
@@ -78,6 +106,9 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform whatsapp share action.
+     */
     public shareViaWhatsApp() {
         console.log('shareViaWhatsApp()');
         this.socialSharing.shareViaWhatsApp(
@@ -87,12 +118,15 @@ class MovieDetailsPage extends BaseController {
         );
     }
 
+    /**
+     * Perform email share action.
+     */
     public shareViaEmail() {
         console.log('shareViaEmail()');
         this.socialSharing.shareViaEmail(
             this.movie.tagline,
             this.movie.title,
-            ['ilbert.esculpi@gmail.com']
+            null
         );
     }
 

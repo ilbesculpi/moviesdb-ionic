@@ -35,7 +35,7 @@ class LocalManagerService {
     }
 
     public storeMovies(movies: Movie[]) : Promise<void> {
-        const value = JSON.stringify(movies);
+        const value = JSON.stringify(movies.map((movie) => Movie.toJson(movie)));
         this.storage.set(this.moviesKey, value);
         return Promise.resolve();
     }
@@ -43,10 +43,12 @@ class LocalManagerService {
     public removeMovie(movie: Movie) {
         this.getFavoriteMovies()
             .then((movies) => {
-                const index = movies.indexOf(movie);
+                const key: string = String(movie.id);
+                const movieIds: Array<String> = movies.map((movie) => String(movie.id));
+                const index = movieIds.indexOf(key);
                 if( index !== -1 ) {
-                    const newMovies = movies.splice(index, 1);
-                    return this.storeMovies(newMovies);
+                    movies.splice(index, 1);
+                    return this.storeMovies(movies);
                 }
                 return this.storeMovies(movies);
             });
@@ -58,7 +60,8 @@ class LocalManagerService {
                 if( value ) {
                     const obj = JSON.parse(value);
                     return obj.map((item) => {
-                        return item as Movie;
+                        const movie = Movie.fromJson(item);
+                        return movie;
                     });
                 }
                 else {
@@ -81,6 +84,10 @@ class LocalManagerService {
                 const movieIds: Array<String> = movies.map((movie) => String(movie.id));
                 return movieIds.indexOf(key) !== -1;
             });
+    }
+
+    public removeAllMovies() : Promise<void> {
+        return this.storeMovies([]);
     }
 
 }

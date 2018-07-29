@@ -64,6 +64,22 @@ namespace Movie {
         return movie;
     }
 
+    export function toJson(movie: Movie) : any {
+        let json = {};
+        json["id"] = movie.id;
+        json["title"] = movie.title;
+        json["overview"] = movie.overview;
+        json["popularity"] = movie.popularity;
+        json["poster_path"] = movie.posterPath;
+        json["backdrop_path"] = movie.backdropPath;
+        json["vote_count"] = movie.voteCount;
+        json["vote_average"] = movie.voteAverage;
+        json["release_date"] = movie.releaseDate.format('YYYY-MM-DD');
+        json["homepage"] = movie.homepage;
+        json["tagline"] = movie.tagline;
+        return json;
+    }
+
 }
 
 enum MovieType {

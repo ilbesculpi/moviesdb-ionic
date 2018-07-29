@@ -33,7 +33,7 @@ export class TabsPage {
         title: 'Top Rated',
         icon: 'star',
         params: {
-            type: MovieType.Upcoming,
+            type: MovieType.TopRated,
             title: 'Top Rated'
         }
     }

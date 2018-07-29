@@ -59,6 +59,8 @@ namespace Movie {
         movie.voteCount = json["vote_count"];
         movie.voteAverage = json["vote_average"];
         movie.releaseDate = moment(json["release_date"], 'YYYY-MM-DD');
+        movie.homepage = json["homepage"];
+        movie.tagline = json["tagline"];
         return movie;
     }
 

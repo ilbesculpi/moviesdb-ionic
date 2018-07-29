@@ -18,6 +18,26 @@
   </ion-row>
 
   <ion-row>
+    <ion-col text-center>
+      <button ion-button clear (click)="shareViaFacebook()">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+      <button ion-button clear (click)="shareViaInstagram()">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </button>
+      <button ion-button clear (click)="shareViaTwitter()">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </button>
+      <button ion-button clear (click)="shareViaWhatsApp()">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+      </button>
+      <button ion-button clear (click)="shareViaEmail()">
+        <ion-icon name="mail"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
     <ion-col>
       <p>{{ movie.overview }}</p>
     </ion-col>
@@ -26,7 +46,8 @@
   <ion-row class="cast" margin-top>
     <ion-col>
       <h3>Full Cast &amp; Crew</h3>
-      <ion-slides [slidesPerView]="2">
+      <ion-slides [slidesPerView]="2" pager="true" paginationType="progress"
+      spaceBetween="16">
         <ion-slide *ngFor="let cast of movie.casting" padding-horizontal>
           <h4>{{ cast.name }}</h4>
           <img [src]="cast.profileUrl" alt="{{ cast.name }} Profile Picture" />

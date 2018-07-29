@@ -4,6 +4,8 @@ import { NavController, NavParams, LoadingController  } from 'ionic-angular';
 import { TMDBService, Movie } from '../../providers/imdb/imdb';
 import { BaseController } from '../common/base-controller';
 
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 /**
  * Movie Details Page.
  */
@@ -22,7 +24,8 @@ class MovieDetailsPage extends BaseController {
         public navCtrl: NavController, 
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
-        private movieService: TMDBService) {
+        private movieService: TMDBService,
+        private socialSharing: SocialSharing) {
         
         super(loadingCtrl);
         this.movie = navParams.get('movie');
@@ -44,6 +47,53 @@ class MovieDetailsPage extends BaseController {
                 console.log('[ERROR] Error fetching movie info', error);
                 this.hideLoading();
             });
+    }
+
+    /**
+     * Called when user clicks the share button.
+     */
+    public shareViaFacebook() {
+        console.log('shareViaFacebook()');
+        this.socialSharing.shareViaFacebook(
+            this.movie.tagline,
+            this.movie.posterUrl,
+            null
+        );
+    }
+
+    public shareViaTwitter() {
+        console.log('shareViaTwitter()');
+        this.socialSharing.shareViaTwitter(
+            this.movie.tagline,
+            this.movie.posterUrl,
+            this.movie.homepage
+        );
+    }
+
+    public shareViaInstagram() {
+        console.log('shareViaInstagram()');
+        this.socialSharing.shareViaInstagram(
+            this.movie.tagline,
+            this.movie.posterUrl
+        );
+    }
+
+    public shareViaWhatsApp() {
+        console.log('shareViaWhatsApp()');
+        this.socialSharing.shareViaWhatsApp(
+            this.movie.tagline,
+            this.movie.posterUrl,
+            this.movie.homepage
+        );
+    }
+
+    public shareViaEmail() {
+        console.log('shareViaEmail()');
+        this.socialSharing.shareViaEmail(
+            this.movie.tagline,
+            this.movie.title,
+            ['ilbert.esculpi@gmail.com']
+        );
     }
 
 }

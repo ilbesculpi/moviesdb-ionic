@@ -1,3 +1,9 @@
 page-my-movies {
 
+    .alert {
+        padding: 10px;
+        background-color: color($colors, warning);
+        color: color($colors, dark);
+    }
+
 }

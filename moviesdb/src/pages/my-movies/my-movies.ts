@@ -59,7 +59,7 @@ class MyMoviesPage extends BaseController {
      * Called when a movie is selected on the list.
      * @param movie 
      */
-    selectMovie(movie: Movie) {
+    onSelectMovie(movie: Movie) {
         this.navCtrl.push(MovieDetailsPage, {
             movie: movie
         });

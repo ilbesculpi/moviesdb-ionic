@@ -20,6 +20,7 @@ import { MovieListItem } from '../views/movies/listItem';
 
 // services
 import { TMDBService } from '../providers/imdb/imdb';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { TMDBService } from '../providers/imdb/imdb';
         StatusBar,
         SplashScreen,
         TMDBService,
+        SocialSharing,
         { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]
 })

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController  } from 'ionic-angular';
 
-import { TMDBService, Movie } from '../../providers/imdb/imdb';
 import { BaseController } from '../common/base-controller';
-
+import { TMDBService, Movie } from '../../providers/imdb/imdb';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { LocalManagerService } from '../../providers/local-manager/local-manager';
 
 /**
  * Movie Details Page.
@@ -30,7 +30,8 @@ class MovieDetailsPage extends BaseController {
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
         private movieService: TMDBService,
-        private socialSharing: SocialSharing) {
+        private socialSharing: SocialSharing,
+        private localService: LocalManagerService) {
         
         super(loadingCtrl);
         this.movie = navParams.get('movie');
@@ -38,6 +39,11 @@ class MovieDetailsPage extends BaseController {
     }
 
     ngOnInit() {
+        this.localService.isMovieFavorited(this.movie.id)
+            .then((result) => {
+                this.favorited = result;
+                console.log(result ? 'Movie is favorited' : 'Movie is not favorited');
+            });
         this.fetchMovieDetails();
     }
 
@@ -59,6 +65,10 @@ class MovieDetailsPage extends BaseController {
      */
     public toggleFavorite() {
         this.favorited = !this.favorited;
+        this.localService.toggleMovie(this.movie)
+            .then(() => {
+                console.log('Complete');
+            })
     }
 
     /**

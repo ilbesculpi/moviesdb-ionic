@@ -22,7 +22,7 @@ import { MovieListItem } from '../views/movies/listItem';
 import { TMDBService } from '../providers/imdb/imdb';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { IonicStorageModule } from '@ionic/storage';
-import { LocalManagerProvider } from '../providers/local-manager/local-manager';
+import { LocalManagerService } from '../providers/local-manager/local-manager';
 
 @NgModule({
     declarations: [
@@ -56,7 +56,7 @@ import { LocalManagerProvider } from '../providers/local-manager/local-manager';
         TMDBService,
         SocialSharing,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
-    LocalManagerProvider
+        LocalManagerService
     ]
 })
 export class AppModule { }

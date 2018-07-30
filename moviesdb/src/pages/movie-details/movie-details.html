@@ -2,10 +2,10 @@
   <ion-navbar color="primary">
     <ion-title>{{ movie.title }}</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only (click)="toggleFavorite()">
-          <ion-icon [name]="favorited ? 'heart' : 'heart-outline'"></ion-icon>
-        </button>
-      </ion-buttons>
+      <button ion-button icon-only (click)="toggleFavorite()">
+        <ion-icon [name]="favorited ? 'heart' : 'heart-outline'"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -51,10 +51,23 @@
   <ion-row class="cast" margin-top>
     <ion-col>
       <h3>Full Cast &amp; Crew</h3>
-      <ion-slides [slidesPerView]="2" pager="true" paginationType="progress" spaceBetween="16">
+      <ion-slides [slidesPerView]="numberOfSlides" pager="true" paginationType="progress" spaceBetween="16">
         <ion-slide *ngFor="let cast of movie.casting" padding-horizontal>
           <h4>{{ cast.name }}</h4>
           <img [src]="cast.profileUrl" alt="{{ cast.name }} Profile Picture" />
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="similar" margin-top>
+    <ion-col>
+      <h3>Similar Movies</h3>
+      <ion-slides [slidesPerView]="numberOfSlides" pager="true" paginationType="progress" spaceBetween="16">
+        <ion-slide *ngFor="let relatedMovie of movie.similarMovies" padding-horizontal
+          (click)="onSelectItem(relatedMovie)">
+          <h4>{{ relatedMovie.title }}</h4>
+          <img [src]="relatedMovie.posterUrl" alt="Movie Poster" />
         </ion-slide>
       </ion-slides>
     </ion-col>

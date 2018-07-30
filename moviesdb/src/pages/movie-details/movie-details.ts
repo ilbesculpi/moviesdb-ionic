@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ToastController  } from 'ionic-angular';
+import { NavController, NavParams,
+    LoadingController, ToastController,
+    Platform  } from 'ionic-angular';
 
 import { BaseController } from '../common/base-controller';
 import { TMDBService, Movie } from '../../providers/imdb/imdb';
@@ -25,11 +27,14 @@ class MovieDetailsPage extends BaseController {
      */
     favorited: boolean = false;
 
+    numberOfSlides = 2;
+
     constructor(
         public navCtrl: NavController, 
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
         public toastCtrl: ToastController,
+        public platform: Platform,
         private movieService: TMDBService,
         private socialSharing: SocialSharing,
         private localService: LocalManagerService) {
@@ -46,6 +51,7 @@ class MovieDetailsPage extends BaseController {
                 console.log(result ? 'Movie is favorited' : 'Movie is not favorited');
             });
         this.fetchMovieDetails();
+        this.numberOfSlides = this.platform.width() > 500 ? 4 : 2;
     }
 
     private fetchMovieDetails() {
@@ -82,6 +88,12 @@ class MovieDetailsPage extends BaseController {
             position: 'bottom'
         });
         toast.present();
+    }
+
+    public onSelectItem(movie: Movie) {
+        this.navCtrl.push(MovieDetailsPage, {
+            movie: movie
+        });
     }
 
     /**

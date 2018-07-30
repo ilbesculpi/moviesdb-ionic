@@ -18,7 +18,15 @@ class Movie {
     backdropPath: string = "";
     homepage: string = "";
 
+    /**
+     * Cast & Crew
+     */
     casting: Cast[] = [];
+
+    /**
+     * Similar movies.
+     */
+    similarMovies: Movie[] = [];
 
     constructor() {
 

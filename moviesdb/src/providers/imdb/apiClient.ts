@@ -57,19 +57,21 @@ class TMDBApiClient {
     }
 
     /**
-     * Get the details of a movie: info + credits
+     * Get the details of a movie: info, credits and similar movies
      * @param movieId 
      */
     public getMovieInfo(movieId: number) : Observable<Movie> {
 
         const observableMovieDetails = this.getMovieDetails(movieId);
         const observableMovieCredits = this.getMovieCredits(movieId);
+        const observableSimilarMovies = this.getSimilarMovies(movieId);
 
-        return zip(observableMovieDetails, observableMovieCredits)
+        return zip(observableMovieDetails, observableMovieCredits, observableSimilarMovies)
             .pipe(
                 map((results) => {
                     const movie: Movie = results[0];
                     movie.casting = results[1];
+                    movie.similarMovies = results[2];
                     return movie;
                 })  
             );
@@ -98,6 +100,21 @@ class TMDBApiClient {
             mergeMap(data => of(data["cast"])),
             map((data) => {
                 return data.map((item) => Cast.fromJson(item));
+            })
+        );
+    }
+
+    /**
+     * Get a list of similar movies.
+     * @param movieId 
+     */
+    public getSimilarMovies(movieId: number) : Observable<Movie[]> {
+        const path: string = `movie/${movieId}/similar`;
+        const observable = this.api<Movie[]>(path, 'get');
+        return observable.pipe(
+            switchMap(data => of(data["results"])),
+            map((data) => {
+                return data.map((item) => Movie.fromJson(item))
             })
         );
     }

@@ -10,13 +10,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-12 col-md-6 col-lg-4 *ngFor="let movie of movies" approxItemHeight="260">
-        <movie-list-item [movie]="movie" (click)="selectMovie(movie)"></movie-list-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <movie-list [movies]="movies" (selectItem)="onSelectMovie($event)"></movie-list>
 
   <ion-infinite-scroll (ionInfinite)="fetchMoreItems($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

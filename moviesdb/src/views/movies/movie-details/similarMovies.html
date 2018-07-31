@@ -1,0 +1,11 @@
+<ion-row class="similar" margin-top>
+  <ion-col>
+    <h3>Similar Movies</h3>
+    <ion-slides [slidesPerView]="numberOfSlides" pager="true" paginationType="progress" spaceBetween="16">
+      <ion-slide *ngFor="let movie of movies" padding-horizontal (click)="onSelectItem(movie)">
+        <img [src]="movie.posterUrl" alt="Movie Poster" />
+        <h4>{{ movie.title }}</h4>
+      </ion-slide>
+    </ion-slides>
+  </ion-col>
+</ion-row>

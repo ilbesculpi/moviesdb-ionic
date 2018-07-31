@@ -73,6 +73,7 @@ class MovieDetailsPage extends BaseController {
             .subscribe((movie: Movie) => {
                 console.log(movie);
                 this.movie = movie;
+                this.share.url = movie.homepage;
                 this.hideLoading();
             }, (error) => {
                 console.log('[ERROR] Error fetching movie info', error);

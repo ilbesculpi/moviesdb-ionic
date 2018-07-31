@@ -32,8 +32,8 @@ class SocialShareButtons {
     public shareViaFacebook() {
         console.log('shareViaFacebook()');
         this.socialSharing.shareViaFacebook(
-            this.message,
-            this.image,
+            this.url,
+            null,
             this.url
         );
     }

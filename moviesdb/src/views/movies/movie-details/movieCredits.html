@@ -1,0 +1,12 @@
+<ion-row class="cast" margin-top>
+  <ion-col>
+    <h3>Full Cast &amp; Crew</h3>
+    <ion-slides [slidesPerView]="numberOfSlides" pager="true" 
+      paginationType="progress" spaceBetween="16">
+      <ion-slide *ngFor="let cast of casting" padding-horizontal>
+        <img [src]="cast.profileUrl" alt="{{ cast.name }} Profile Picture" />
+        <h4>{{ cast.name }}</h4>
+      </ion-slide>
+    </ion-slides>
+  </ion-col>
+</ion-row>

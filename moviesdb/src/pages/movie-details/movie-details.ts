@@ -5,7 +5,6 @@ import { NavController, NavParams,
 
 import { BaseController } from '../common/base-controller';
 import { TMDBService, Movie } from '../../providers/imdb/imdb';
-import { SocialSharing } from '@ionic-native/social-sharing';
 import { LocalManagerService } from '../../providers/local-manager/local-manager';
 
 /**
@@ -29,6 +28,13 @@ class MovieDetailsPage extends BaseController {
 
     numberOfSlides = 2;
 
+    share: {
+        message: string,
+        subject: string,
+        image: string,
+        url: string
+    }
+
     constructor(
         public navCtrl: NavController, 
         public navParams: NavParams,
@@ -36,11 +42,18 @@ class MovieDetailsPage extends BaseController {
         public toastCtrl: ToastController,
         public platform: Platform,
         private movieService: TMDBService,
-        private socialSharing: SocialSharing,
         private localService: LocalManagerService) {
         
         super(loadingCtrl);
         this.movie = navParams.get('movie');
+
+        // define share properties
+        this.share = {
+            message: "I'm sharing this movie with you. Enjoy!",
+            subject: "I'm sharing this movie with you. Enjoy!",
+            image: this.movie.posterUrl,
+            url: this.movie.homepage
+        };
 
     }
 
@@ -90,69 +103,14 @@ class MovieDetailsPage extends BaseController {
         toast.present();
     }
 
-    public onSelectItem(movie: Movie) {
+    /**
+     * Called when a similar movie is selected from the list.
+     * @param movie 
+     */
+    public onSelectMovie(movie: Movie) {
         this.navCtrl.push(MovieDetailsPage, {
             movie: movie
         });
-    }
-
-    /**
-     * Perform facebook share action.
-     */
-    public shareViaFacebook() {
-        console.log('shareViaFacebook()');
-        this.socialSharing.shareViaFacebook(
-            this.movie.tagline,
-            this.movie.posterUrl,
-            null
-        );
-    }
-
-    /**
-     * Perform twitter share action.
-     */
-    public shareViaTwitter() {
-        console.log('shareViaTwitter()');
-        this.socialSharing.shareViaTwitter(
-            this.movie.tagline,
-            this.movie.posterUrl,
-            this.movie.homepage
-        );
-    }
-
-    /**
-     * Perform instagram share action.
-     */
-    public shareViaInstagram() {
-        console.log('shareViaInstagram()');
-        this.socialSharing.shareViaInstagram(
-            this.movie.tagline,
-            this.movie.posterUrl
-        );
-    }
-
-    /**
-     * Perform whatsapp share action.
-     */
-    public shareViaWhatsApp() {
-        console.log('shareViaWhatsApp()');
-        this.socialSharing.shareViaWhatsApp(
-            this.movie.tagline,
-            this.movie.posterUrl,
-            this.movie.homepage
-        );
-    }
-
-    /**
-     * Perform email share action.
-     */
-    public shareViaEmail() {
-        console.log('shareViaEmail()');
-        this.socialSharing.shareViaEmail(
-            this.movie.tagline,
-            this.movie.title,
-            null
-        );
     }
 
 }

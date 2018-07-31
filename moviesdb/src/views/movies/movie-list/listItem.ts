@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Movie } from '../../providers/imdb/imdb';
+
+import { Movie } from '../../../providers/imdb/imdb';
 
 @Component({
     selector: 'movie-list-item',

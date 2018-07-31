@@ -22,25 +22,11 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col text-center>
-      <button ion-button color="social" clear (click)="shareViaFacebook()">
-        <ion-icon name="logo-facebook"></ion-icon>
-      </button>
-      <button ion-button color="social" clear (click)="shareViaInstagram()">
-        <ion-icon name="logo-instagram"></ion-icon>
-      </button>
-      <button ion-button color="social" clear (click)="shareViaTwitter()">
-        <ion-icon name="logo-twitter"></ion-icon>
-      </button>
-      <button ion-button color="social" clear (click)="shareViaWhatsApp()">
-        <ion-icon name="logo-whatsapp"></ion-icon>
-      </button>
-      <button ion-button color="social" clear (click)="shareViaEmail()">
-        <ion-icon name="mail"></ion-icon>
-      </button>
-    </ion-col>
-  </ion-row>
+  <social-share-buttons color="social"
+    [subject]="share.subject"
+    [message]="share.message"
+    [image]="share.image"
+    [url]="share.url"></social-share-buttons>
 
   <ion-row>
     <ion-col>
@@ -48,29 +34,9 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="cast" margin-top>
-    <ion-col>
-      <h3>Full Cast &amp; Crew</h3>
-      <ion-slides [slidesPerView]="numberOfSlides" pager="true" paginationType="progress" spaceBetween="16">
-        <ion-slide *ngFor="let cast of movie.casting" padding-horizontal>
-          <h4>{{ cast.name }}</h4>
-          <img [src]="cast.profileUrl" alt="{{ cast.name }} Profile Picture" />
-        </ion-slide>
-      </ion-slides>
-    </ion-col>
-  </ion-row>
+  <movie-credits [casting]="movie.casting" [numberOfSlides]="numberOfSlides"></movie-credits>
 
-  <ion-row class="similar" margin-top>
-    <ion-col>
-      <h3>Similar Movies</h3>
-      <ion-slides [slidesPerView]="numberOfSlides" pager="true" paginationType="progress" spaceBetween="16">
-        <ion-slide *ngFor="let relatedMovie of movie.similarMovies" padding-horizontal
-          (click)="onSelectItem(relatedMovie)">
-          <h4>{{ relatedMovie.title }}</h4>
-          <img [src]="relatedMovie.posterUrl" alt="Movie Poster" />
-        </ion-slide>
-      </ion-slides>
-    </ion-col>
-  </ion-row>
+  <similar-movies [movies]="movie.similarMovies" (selectItem)="onSelectMovie($event)"
+    [numberOfSlides]="numberOfSlides"></similar-movies>
 
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Movie } from '../../providers/imdb/imdb';
+import { Movie } from '../../../providers/imdb/imdb';
 
 
 /**
@@ -19,7 +19,7 @@ class MovieList {
     movies: Movie[] = [];
 
     @Output()
-    selectItem = new EventEmitter<Movie>()
+    selectItem = new EventEmitter<Movie>();
     
     constructor() {
         

@@ -16,7 +16,10 @@ import {
 // views
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { MovieList, MovieListItem } from '../views/movies/movies';
+import { MovieList, MovieListItem, 
+        MovieCredits, SimilarMovies 
+    } from '../views/movies/movies';
+import { SocialShareButtons } from '../views/social-share/social-share';
 
 // services
 import { TMDBService } from '../providers/imdb/imdb';
@@ -32,8 +35,11 @@ import { LocalManagerService } from '../providers/local-manager/local-manager';
         MovieListPage,
         MovieList,
         MovieListItem,
+        MovieCredits,
+        SimilarMovies,
         MyMoviesPage,
-        MovieDetailsPage
+        MovieDetailsPage,
+        SocialShareButtons
     ],
     imports: [
         BrowserModule,
@@ -49,8 +55,11 @@ import { LocalManagerService } from '../providers/local-manager/local-manager';
         MovieListPage,
         MovieList,
         MovieListItem,
+        MovieCredits,
+        SimilarMovies,
         MyMoviesPage,
-        MovieDetailsPage
+        MovieDetailsPage,
+        SocialShareButtons
     ],
     providers: [
         StatusBar,
